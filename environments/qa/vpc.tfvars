@@ -1,2 +1,2 @@
 
-vpc_name = "test-vpc"
+vpc_name = "terraform-vpc-qa"
