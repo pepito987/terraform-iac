@@ -2,13 +2,12 @@ variable "region" {}
 variable "vpc_cidr" {}
 variable "vpc_name" {}
 
-
 provider "aws" {
   region = "${var.region}"
 }
 
 module "network" {
-  source = "../../modules/network"
+  source = "../modules/network"
 
   region = "${var.region}"
   vpc_cidr = "${var.vpc_cidr}"

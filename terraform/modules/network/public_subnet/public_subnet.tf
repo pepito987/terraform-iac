@@ -38,4 +38,4 @@ resource "aws_route_table_association" "public" {
   route_table_id = "${aws_route_table.public.id}"
 }
 
-output "subnet_ids" { value = "${join(",", aws_subnet.public.*.id)}" }
+output "public_subnet_ids" { value = "${join(",", aws_subnet.public.*.id)}" }

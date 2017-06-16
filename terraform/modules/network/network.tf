@@ -10,3 +10,7 @@ module "vpc" {
   name = "${var.vpc_name}"
   cdir = "${var.vpc_cidr}"
 }
+
+output "vpc_id" {
+  value = "${module.vpc.vpc_id}"
+}
