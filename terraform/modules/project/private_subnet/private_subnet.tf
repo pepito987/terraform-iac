@@ -2,28 +2,19 @@
 #  - attacced to a vpc
 #  - associated to a private route table
 
-resource "aws_subnet" "private_subnet" {
+module "private_route_table" {
+  source = "../../aws/route_table"
+  env = "${var.env}"
+  vpc_id = "${var.public_vpc_id}"
+  route_table_name = "${var.private_route_table_name}"
+}
+
+module "private_subnet" {
+  source = "../../aws/subnet"
+  env = "${var.env}"
   availability_zone = "${var.availability_zone_a}"
-
+  route_table_id = "${module.private_route_table.route_table_id}"
+  subnet_name = "${var.private_subnet_name}"
   vpc_id = "${var.public_vpc_id}"
-  cidr_block = "${var.private_subnet_cidr}"
-
-  lifecycle { create_before_destroy = true}
-
-  tags {
-    Name = "${var.private_subnet_name}-${var.env}"
-  }
-}
-
-resource "aws_route_table" "private_route_table" {
-  vpc_id = "${var.public_vpc_id}"
-
-  tags {
-    Name = "${var.private_route_table_name}-${var.env}"
-  }
-}
-
-resource "aws_route_table_association" "private_subnet_to_private_route_table" {
-  route_table_id = "${aws_route_table.private_route_table.id}"
-  subnet_id = "${aws_subnet.private_subnet.id}"
+  subnet_cidr = "${var.private_subnet_cidr}"
 }

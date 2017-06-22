@@ -1,3 +1,3 @@
 output "id" {
-  value = "${aws_subnet.public_subnet.id}"
+  value = "${module.public_subnet.id}"
 }

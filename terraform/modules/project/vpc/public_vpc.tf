@@ -1,31 +1,30 @@
 # Public VPC attaced to a IGW and route table
 
-resource "aws_vpc" "public_vpc" {
-  cidr_block =  "${var.public_vpc_cidr}"
+module "public_vpc" {
+  source = "../../aws/vpc"
 
-  tags {
-    Name = "${var.public_vpc_name}-${var.env}"
-  }
+  env = "${var.env}"
+  vpc_cidr = "${var.public_vpc_cidr}"
+  vpc_name = "${var.public_vpc_name}"
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = "${aws_vpc.public_vpc.id}"
-
-  tags {
-    Name = "${var.igw_name}-${var.env}"
-  }
+module "public_igw" {
+  source = "../../aws/igw"
+  env = "${var.env}"
+  vpc_id = "${module.public_vpc.vpc_id}"
+  igw_name = "${var.igw_name}"
 }
 
-resource "aws_route_table" "public_route_table" {
-  vpc_id = "${aws_vpc.public_vpc.id}"
-
-  tags {
-    Name = "${var.public_route_table_name}-${var.env}"
-  }
+module "public_route_table" {
+  source = "../../aws/route_table"
+  env = "${var.env}"
+  vpc_id = "${module.public_vpc.vpc_id}"
+  route_table_name = "${var.public_route_table_name}"
 }
 
-resource "aws_route" "vpc_public_route" {
-  route_table_id = "${aws_route_table.public_route_table.id}"
-  destination_cidr_block = "${var.public_vpc_route}"
-  gateway_id = "${aws_internet_gateway.igw.id}"
+module "public_route" {
+  source = "../../aws/route"
+  igw_id = "${module.public_igw.igw_id}"
+  route_table_id = "${module.public_route_table.route_table_id}"
+  cidr_route = "${var.public_vpc_route}"
 }
