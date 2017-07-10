@@ -1,0 +1,10 @@
+version: 2.0
+
+phases:
+  install:
+    commands:
+      - docker-compose build --pull
+  build:
+    commands:
+      - docker-compose run --rm terraform get terraform/project
+      - docker-compose run --rm terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
