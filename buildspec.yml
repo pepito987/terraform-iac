@@ -6,5 +6,5 @@ phases:
 #      - docker build --pull
   build:
     commands:
-      - docker run --rm -v $PWD:/data --workdir=/data terraform get terraform/project
-      - docker run --rm -v $PWD:/data --workdir=/data terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
+      - docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform get terraform/project
+      - docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
