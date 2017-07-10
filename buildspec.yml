@@ -7,4 +7,4 @@ phases:
   build:
     commands:
       - docker-compose run --rm terraform get terraform/project
-      - docker-compose run --rm terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
+      - docker-compose run --rm -v $PWD:/data --workdir=/data terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
