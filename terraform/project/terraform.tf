@@ -4,6 +4,9 @@ variable "vpc_name" {}
 
 provider "aws" {
   region = "${var.region}"
+  assume_role {
+    role_arn = "arn:aws:iam::256981470617:role/RolePortalRehomingEngineer"
+  }
 }
 
 module "network" {
