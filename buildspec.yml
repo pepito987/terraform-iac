@@ -7,9 +7,10 @@ env:
 phases:
   install:
     commands:
-      - echo $AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+      - echo "here you are $AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"
 #      - curl http://169.254.169.254:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
   build:
     commands:
       - docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform get terraform/project
       - docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
+ 
