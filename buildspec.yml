@@ -7,8 +7,8 @@ env:
 phases:
   install:
     commands:
-      - echo $AWS_METADATA_ENDPOINT
-      - curl http://169.254.169.254:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+      - echo $AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+#      - curl http://169.254.169.254:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
   build:
     commands:
       - docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform get terraform/project
