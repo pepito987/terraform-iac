@@ -16,5 +16,5 @@ phases:
 #      - curl http://169.254.170.2:80$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
   build:
     commands:
-      - . ./tmp/aws_cred_export.txt && docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform get terraform/project
-      - . ./tmp/aws_cred_export.txt && docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
+      - . /tmp/aws_cred_export.txt && docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform get terraform/project
+      - . /tmp/aws_cred_export.txt && docker run --rm -v $PWD:/data --workdir=/data hashicorp/terraform plan --var-file terraform/envs/qa/qa.tfvars -state=terraform/envs/qa/terraform.tfstate terraform/project
